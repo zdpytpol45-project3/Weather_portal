@@ -1,4 +1,0 @@
-Django==4.0.4
-python-dotenv==0.17.1
-psycopg2-binary
-ipython==8.2.0
