@@ -1,3 +1,4 @@
 Django==4.0.4
 python-dotenv==0.17.1
 ipython==8.2.0gi
+django-email-users
