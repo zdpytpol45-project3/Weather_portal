@@ -2,6 +2,15 @@
 
 This python script will ... 
 
+## Table of Contents
+* [Getting started](#getting-started)
+* [Technologies Used](#technologies-used)
+* [Features](#features)
+* [Screenshots](#screenshots)
+* [Usage](#usage)
+* [Project Status](#project-status)
+
+
 ### GETTING STARTED
 
 1. Checking Python version.
@@ -29,16 +38,24 @@ or:
     
  ### USAGE
  
- - To use this application you need to type (if you're in your workspace directory): 
-    `python manage.py migrate`
-    `python manage.py createsuperuser`
-    `python manage.py runserver`  
+ To use this application you need to type (if you're in your workspace directory): 
+ 
+ - `python manage.py migrate`
+ - `python manage.py createsuperuser`
+ - `python manage.py runserver`  
     
- - Main functionalities:
+ ### Features
+   List the ready features here:
    - User registration/login
    
- - Technologies used:
+### Technologies Used
     - Python 3.9.0
     - Django 4.0.4
     - requests
+
+### Project Status
+Project is: _in progress_
+
+### Screenshots
+..
  
