@@ -29,10 +29,10 @@ or:
     
  ### USAGE
  
- - To use this application you need to type (if you're in your workspace directory):  
+ - To use this application you need to type (if you're in your workspace directory): 
+    `python manage.py migrate`
+    `python manage.py createsuperuser`
     `python manage.py runserver`  
-or  
-    `python3 manage.py runserver` 
     
  - Main functionalities:
    - User registration/login
