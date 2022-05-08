@@ -47,6 +47,9 @@ or:
  ### Features
    List the ready features here:
    - User registration/login
+   - Change password
+   - Reset password
+   - Registrator new user
    
 ### Technologies Used
     - Python 3.9.0
