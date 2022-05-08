@@ -56,6 +56,8 @@ def your_weather(request):
     }
     return render(request, 'weatherapp/yourweather.html', context)
 
+
 def delete_user_city(request, city_name_to_delete):
     City.objects.get(name=city_name_to_delete).delete()
     return redirect('weather_in_user_city')
+

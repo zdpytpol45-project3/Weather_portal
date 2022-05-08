@@ -1,16 +1,33 @@
-<!DOCTYPE html>
+{% load static %}
+<! DOCTYPE html>
+
 <html lang="en">
 
+    <head>
+        <meta charset="UTF-8">
+        <title> Weather App </title>
+        <meta name="description" content="Za pomocą aplikacji pogodowej jesteś wstanie sprawdzać
+        aktualne warunki pogodowe w wybranych przez siebie miastach"/>
+        <meta name="ZDPYTpol45 grupa 3" />
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    </head>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
-</head>
 
-<body>
+    {% block page_header %}
+    <body>
+        <section>
+            <header class="page_header">
+                <div>
+                    <img class="header_image" src="{% static 'images/page_header_image.jpg' %}">
+                </div>
+                <div class="text_in_header_image">
+                    Weather App
+                </div>
+            </header>
+        </section>
+    </body>
+    {% endblock %}
+    {% block section_one %}
 
-</body>
+    {% endblock %}
 </html>
