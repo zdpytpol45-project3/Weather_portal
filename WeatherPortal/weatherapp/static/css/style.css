@@ -1,0 +1,70 @@
+.page_header {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.header_image {
+  width: 100%;
+  z-index: 0;
+  height: 150px;
+}
+
+.text_in_header_image {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: black;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 48px;
+  font-weight: 700;
+}
+
+
+body {
+    color: #4a4a4a;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+body{
+    font-family: BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+.section {
+    margin-left: auto;
+    margin-right: auto;
+    width: 24em
+}
+
+.box {
+  border: 2px solid gray;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.weather_media {
+  display: flex;
+  align-items: center;
+}
+
+.media_delete_button {
+  margin-left: 15%;
+}
+
+.delete_button:after{
+  display: inline-block;
+  content: "\00d7"; /* This will render the 'X' */
+}
+
+.form_with_submit {
+  margin-left: auto;
+  margin-right: auto;
+  width: 8em;
+}
+
+.city_name {
+  font-size: 24px;
+}

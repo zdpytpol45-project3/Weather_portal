@@ -1,0 +1,33 @@
+{% load static %}
+<! DOCTYPE html>
+
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <title> Weather App </title>
+        <meta name="description" content="Za pomocą aplikacji pogodowej jesteś wstanie sprawdzać
+        aktualne warunki pogodowe w wybranych przez siebie miastach"/>
+        <meta name="ZDPYTpol45 grupa 3" />
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
+    </head>
+
+
+    {% block page_header %}
+    <body>
+        <section>
+            <header class="page_header">
+                <div>
+                    <img class="header_image" src="{% static 'images/page_header_image.jpg' %}">
+                </div>
+                <div class="text_in_header_image">
+                    Weather App
+                </div>
+            </header>
+        </section>
+    </body>
+    {% endblock %}
+    {% block section_one %}
+
+    {% endblock %}
+</html>

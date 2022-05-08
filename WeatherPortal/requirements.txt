@@ -1,3 +1,4 @@
 Django==4.0.4
 python-dotenv==0.17.1
-ipython==8.2.0gi
+ipython==8.2.0
+requests==2.27.1
