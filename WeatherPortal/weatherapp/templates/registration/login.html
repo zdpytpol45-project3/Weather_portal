@@ -1,0 +1,14 @@
+{% extends 'weatherapp/base_weather.html' %}
+
+{% block content %}
+<h2>Login</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Login" class="btn btn-primary">
+</form>
+<a class="btn btn-danger" href="{% url 'weather_in_user_city' %}" role="button">Return to Home Site</a>
+<a class="btn btn-danger" href="{% url 'password_reset' %}" role="button">Reset Password</a>
+<a class="btn btn-danger" href="{% url 'register' %}" role="button">Register</a>
+{% endblock %}

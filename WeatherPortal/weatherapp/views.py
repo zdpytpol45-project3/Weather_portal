@@ -1,9 +1,27 @@
 import requests
+from django.contrib.auth import login
 from django.shortcuts import render, redirect
+from django.urls import reverse
+
+from .forms import CityForm, CustomUserCreationForm
 from .models import City
-from .forms import CityForm
+
 
 # Create your views here.
+def register(request):
+    if request.method == "GET":
+        return render(
+            request, 'users/register.html',
+            {'form': CustomUserCreationForm}
+        )
+    elif request.method == "POST":
+        form = CustomUserCreationForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)
+            return redirect(reverse('weather_in_user_city'))
+
+
 def your_weather(request):
     url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=Metric&appid=f92692da38455ae53f832ee64b87574c'
 
@@ -36,7 +54,6 @@ def your_weather(request):
     cities_for_weather_data = []
 
     for city in cities:
-
         get_weather_data = requests.get(url.format(city)).json()
 
         weather_in_city = {
@@ -60,4 +77,3 @@ def your_weather(request):
 def delete_user_city(request, city_name_to_delete):
     City.objects.get(name=city_name_to_delete).delete()
     return redirect('weather_in_user_city')
-
