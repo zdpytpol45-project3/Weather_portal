@@ -49,10 +49,7 @@ body{
 .weather_media {
   display: flex;
   align-items: center;
-}
-
-.media_delete_button {
-  margin-left: 15%;
+  justify-content: space-around;
 }
 
 .delete_button:after{
@@ -94,5 +91,5 @@ input[type=submit] {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
-
