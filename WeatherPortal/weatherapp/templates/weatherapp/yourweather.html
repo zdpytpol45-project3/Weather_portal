@@ -2,40 +2,33 @@
 {% load static %}
 
 {% block content %}
+<div class="user_information" >
+    Hello, {{ user.username|default:'Guest' }} !
 
-Hello, {{ user.username|default:'Guest' }} !
-
-<div>
-    {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}">Logout</a>
-        <a href="{% url 'password_change' %}">Change Password</a>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-        <a href="{% url 'register' %}">Register</a>
-    {% endif %}
+    <div xmlns="http://www.w3.org/1999/html">
+        {% if user.is_authenticated %}
+            <a href="{% url 'logout' %}">Logout</a>
+            <a href="{% url 'password_change' %}">Change Password</a>
+        {% else %}
+            <a href="{% url 'login' %}">Login</a>
+            <a href="{% url 'register' %}">Register</a>
+        {% endif %}
+    </div>
 </div>
-
 {% endblock %}
 
 
 {% block section_one %}
-
-
-
 <body>
     <section class="section">
         <div class="form_with_notification">
             <form method="POST">
                 {% csrf_token %}
-                <div class="form_with_submit">
-                    <div class="get_from_add_city">
+                <div class="city_form_without_notification">
+                    <div class="get_from_add_city" id="myInput">
                         {{ form.name }}
                     </div>
-                    <div class="form_submit">
-                        <button type="submit" class="button_submit">
-                            Add City
-                        </button>
-                    </div>
+                    <input type="submit" value="Add City">
                 </div>
                 {% if message_for_user %}
                     <div class="notification_for_user">{{ message_for_user }}</div>
@@ -61,14 +54,23 @@ Hello, {{ user.username|default:'Guest' }} !
                             <br> <span class="cty_description">{{ weather_in_city.description}} </span>
                         </p>
                     </div>
-                    <div class="media_delete_button">
-                        <a href="{% url 'delete_user_city' weather_in_city.city %}">
-                            <button class="delete_button"></button>
-                        </a>
-                    </div>
+                    {% if user.is_authenticated %}
+                        <div class="media_delete_button">
+                            <a href="{% url 'delete_user_city' weather_in_city.city %}">
+                                <button class="delete_button"></button>
+                            </a>
+                        </div>
+                    {% endif %}
                 </article>
             </div>
             {% endfor %}
+            {% if user.is_authenticated %}
+            {% else %}
+                <div>
+                    Log in, increase the possibilities of the application
+                    <br> Check weather for more city than one and save Your cities
+                </div>
+            {% endif %}
         </div>
     </section>
 </body>

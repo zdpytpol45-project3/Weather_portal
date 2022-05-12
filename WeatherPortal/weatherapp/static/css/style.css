@@ -33,7 +33,8 @@ body{
     font-family: BlinkMacSystemFont, "Segoe UI", sans-serif;
 }
 
-.section {
+
+.weather_city_info {
     margin-left: auto;
     margin-right: auto;
     width: 24em
@@ -59,12 +60,37 @@ body{
   content: "\00d7"; /* This will render the 'X' */
 }
 
-.form_with_submit {
-  margin-left: auto;
-  margin-right: auto;
-  width: 8em;
-}
-
 .city_name {
   font-size: 24px;
 }
+
+* { box-sizing: border-box; }
+
+.city_form_without_notification {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.notification_for_user {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user_information {
+  display: flex;
+  justify-content: center;
+}
+input {
+  border: 1px solid transparent;
+  background-color: #f1f1f1;
+  padding: 10px;
+  font-size: 16px;
+}
+
+input[type=submit] {
+  background-color: DodgerBlue;
+  color: #fff;
+}
+
