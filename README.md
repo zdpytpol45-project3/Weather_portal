@@ -51,8 +51,12 @@ or:
    - Reset password
    - Registrator new user
    - connect with OpenWeather Api
-   - show information aobut weahter for city
-   - save city for logged users
+   - save city for logged users (without maximum)
+   - for not logged user show maximum 1 city
+   - make validator to check:
+        > city exist 
+        > city already is in list
+   - delete button for user to delete city in saved user list
    
 ### Technologies Used
     - Python 3.9.0
