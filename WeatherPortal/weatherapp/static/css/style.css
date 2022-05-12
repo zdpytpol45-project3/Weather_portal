@@ -78,10 +78,6 @@ body{
   justify-content: center;
 }
 
-.user_information {
-  display: flex;
-  justify-content: center;
-}
 input {
   border: 1px solid transparent;
   background-color: #f1f1f1;
@@ -92,5 +88,11 @@ input {
 input[type=submit] {
   background-color: DodgerBlue;
   color: #fff;
+}
+
+.user_information{
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 

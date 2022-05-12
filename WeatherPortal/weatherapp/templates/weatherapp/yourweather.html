@@ -3,20 +3,20 @@
 
 {% block content %}
 <div class="user_information" >
-    Hello, {{ user.username|default:'Guest' }} !
-
-    <div xmlns="http://www.w3.org/1999/html">
+    <div>
+    <h2 class="user_hello">Hello, {{ user.username|default:'Guest' }} !</h2>
+    </div>
+    <div class="user_button">
         {% if user.is_authenticated %}
-            <a href="{% url 'logout' %}">Logout</a>
-            <a href="{% url 'password_change' %}">Change Password</a>
+            <a class="btn btn-danger" href="{% url 'logout' %}" role="button">Logout</a>
+            <a class="btn btn-danger" href="{% url 'password_change' %}" role="button">Change Password</a>
         {% else %}
-            <a href="{% url 'login' %}">Login</a>
-            <a href="{% url 'register' %}">Register</a>
+            <a class="btn btn-danger" href="{% url 'login' %}" role="button">Login</a>
+            <a class="btn btn-danger" href="{% url 'register' %}" role="button">Register</a>
         {% endif %}
     </div>
 </div>
 {% endblock %}
-
 
 {% block section_one %}
 <body>
