@@ -50,6 +50,9 @@ or:
    - Change password
    - Reset password
    - Registrator new user
+   - connect with OpenWeather Api
+   - show information aobut weahter for city
+   - save city for logged users
    
 ### Technologies Used
     - Python 3.9.0
