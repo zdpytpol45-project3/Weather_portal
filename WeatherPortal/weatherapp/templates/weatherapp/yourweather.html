@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+
 <div class="user_information" >
     <div>
     <h2 class="user_hello">Hello, {{ user.username|default:'Guest' }} !</h2>
@@ -15,6 +16,7 @@
             <a class="btn btn-danger" href="{% url 'register' %}" role="button">Register</a>
         {% endif %}
     </div>
+
 </div>
 {% endblock %}
 
