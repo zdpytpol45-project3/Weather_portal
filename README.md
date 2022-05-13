@@ -1,6 +1,6 @@
 ## Weather Portal
 
-This python script will ... 
+Using the weather application, you are able to check the current weather conditions in the cities of your choice, after user registration, the selected cities will be remembered. The user can reset and change the password. The app connects to the OpenWeather Api. The user has the option to delete the cities he has chosen.
 
 ## Table of Contents
 * [Getting started](#getting-started)
