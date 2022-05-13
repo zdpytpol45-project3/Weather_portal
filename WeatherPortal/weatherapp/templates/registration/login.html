@@ -8,7 +8,7 @@
     {{ form.as_p }}
     <input type="submit" value="Login">
 </form>
-<a href="{% url 'weather_in_user_city' %}">Return to Home Site</a>
-<a href="{% url 'password_reset' %}">Reset Password</a>
-<a href="{% url 'register' %}">Register</a>
+<a class="btn btn-danger" href="{% url 'weather_in_user_city' %}" role="button">Return to Home Site</a>
+<a class="btn btn-danger" href="{% url 'password_reset' %}" role="button">Reset Password</a>
+<a class="btn btn-danger" href="{% url 'register' %}" role="button">Register</a>
 {% endblock %}

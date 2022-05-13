@@ -41,6 +41,7 @@ body{
 }
 
 .box {
+  background-color: white;
   border: 2px solid gray;
   padding: 10px;
   margin-bottom: 10px;
@@ -49,6 +50,7 @@ body{
 .weather_media {
   display: flex;
   align-items: center;
+  justify-content: space-around;
 }
 
 .media_delete_button {
@@ -94,5 +96,20 @@ input[type=submit] {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column
+}
+
+
+.bg {
+  /* The image used */
+  background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).jpg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
