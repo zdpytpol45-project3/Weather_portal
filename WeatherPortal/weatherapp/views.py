@@ -2,6 +2,7 @@ import requests
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from pprint import pprint
 
 from .forms import CityForm, CustomUserCreationForm
 from .models import City
@@ -36,9 +37,11 @@ def your_weather(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
             form = CityForm(request.POST)
+            pprint(form)
             if form.is_valid():
                 new_add_city = form.cleaned_data['name']
                 get_weather_data_for_city = requests.get(url.format(new_add_city)).json()
+                pprint(get_weather_data_for_city)
                 if get_weather_data_for_city['cod'] == 200:
                     new_city_for_logged_user = City.objects.filter(name=new_add_city, user=request.user).count()
                     if new_city_for_logged_user == 0:
