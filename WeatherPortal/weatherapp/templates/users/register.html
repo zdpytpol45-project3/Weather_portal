@@ -1,12 +1,65 @@
 {% extends 'weatherapp/base_weather.html' %}
 {% block content %}
-<h2>Register</h2>
 
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Register">
-</form>
-<a class="btn btn-danger" href="{% url 'login' %}" role="button">Return to Login</a>
+
+<!--<form method="post">-->
+<!--    {% csrf_token %}-->
+<!--    {{ form.as_p }}-->
+<!--    <input type="submit" value="Register">-->
+<!--</form>-->
+<!--<a class="btn btn-danger" href="{% url 'login' %}" role="button">Return to Login</a>-->
+<div class="signup-form">
+    <form action="" method="post" class="form-horizontal">
+      	<div class="row">
+        	<div class="col-12 offset-1">
+				<h2>Register</h2>
+			</div>
+      	</div>
+        <div class="form-group row">
+			<label class="col-form-label col-1">Username</label>
+			<div class="col-2">
+                {% csrf_token %}
+                <label>
+                    <input type="text" class="form-control" name="username" required="required">
+                </label>
+            </div>
+        </div>
+		<div class="form-group row">
+			<label class="col-form-label col-1">Email Address</label>
+			<div class="col-2">
+                {% csrf_token %}
+                <label>
+                    <input type="email" class="form-control" name="email" required="required">
+                </label>
+            </div>
+        </div>
+		<div class="form-group row">
+			<label class="col-form-label col-1">Password</label>
+			<div class="col-2">
+                {% csrf_token %}
+                <label>
+                    <input type="password" class="form-control" name="password" required="required">
+                </label>
+            </div>
+        </div>
+		<div class="form-group row">
+			<label class="col-form-label col-1">Confirm Password</label>
+			<div class="col-2">
+                {% csrf_token %}
+                <label>
+                    <input type="password" class="form-control" name="confirm_password" required="required">
+                </label>
+            </div>
+        </div>
+		<div class="form-group row">
+			<div class="col-12 offset-1">
+                <br>
+				<button type="submit" value="Register" class="btn btn-dark btn-lg">Register</button>
+			</div>
+		</div>
+    </form>
+	<div class="text">Already have an account? <a href="{% url 'login' %}">Login here</a>
+    </div>
+</div>
 
 {% endblock %}
