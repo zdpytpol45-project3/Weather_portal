@@ -51,12 +51,10 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-around;
-
 }
 
 .media_delete_button {
   margin-left: 15%;
-
 }
 
 .delete_button:after{
@@ -98,7 +96,6 @@ input[type=submit] {
   display: flex;
   justify-content: center;
   align-items: center;
-
   flex-direction: column
 }
 
@@ -114,9 +111,5 @@ input[type=submit] {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-
-  flex-direction: column;
 }
 
