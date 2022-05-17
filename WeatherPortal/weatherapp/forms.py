@@ -1,5 +1,4 @@
 from django.contrib.auth.forms import UserCreationForm
-#from django.forms import ModelForm, TextInput, Form
 from django import forms
 
 from .models import City
@@ -16,6 +15,3 @@ class CityForm(forms.ModelForm):
         fields = ['name']
         widgets = {'name': forms.TextInput(attrs={'class': 'input', 'placeholder': 'City Name'})}
 
-
-class LocationForm(forms.Form):
-    location = forms.CharField(label='location', max_length=100)

@@ -5,8 +5,6 @@ import dotenv
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpResponse
-from django.contrib.sessions.models import Session
 from pprint import pprint
 
 from .forms import CityForm, CustomUserCreationForm
@@ -25,7 +23,7 @@ def get_city_location(city_name):
         if get_coords_data:  # check that city exist in geo api
             return get_coords_data
         else:
-            return ValueError("city not exist in api")
+            return ValueError("No matching result for specific city")
     except requests.exceptions.HTTPError:
         return "Can't connect with openweather api"
 
@@ -75,27 +73,51 @@ def your_weather(request, add_new_location=False, chosen_location=0):
         form = CityForm(request.POST)
         if form.is_valid():
             new_add_city = form.cleaned_data['name']
+            request.session['last_add_location'] = new_add_city
             get_location_for_new_city = get_city_location(new_add_city)
+            if 'state' in get_location_for_new_city[0]:
+                print('True')
+            else:
+                print('false')
             if len(get_location_for_new_city) == 1:
                 add_new_location = True
-
-                #If is one location only
             else:
                 for counter_cities in range(len(get_location_for_new_city)):
+                    if 'state' in get_location_for_new_city[counter_cities]:
+                        location_state = get_location_for_new_city[counter_cities]['state']
+                    else:
+                        location_state = "---"
                     city_location = {
                         'city': new_add_city,
                         'lat': get_location_for_new_city[counter_cities]['lat'],
                         'lon': get_location_for_new_city[counter_cities]['lon'],
                         'country': get_location_for_new_city[counter_cities]['country'],
-                        'state': get_location_for_new_city[counter_cities]['state'],
+                        'state': location_state,
                         'number': counter_cities,
+
                     }
                     cities_locations.append(city_location)
 
 
-
     if add_new_location:
-        print(f'user choose {chosen_location}')
+        chosen_location = int(chosen_location)
+        last_add_location = request.session.get('last_add_location')
+        get_location_for_new_city = get_city_location(last_add_location)
+        lat_chosen_location = get_location_for_new_city[chosen_location]['lat']
+        lon_chosen_location = get_location_for_new_city[chosen_location]['lon']
+        print(lat_chosen_location, "jest typu:", type(lat_chosen_location))
+        chosen_unique_location = {
+            'location': last_add_location,
+            'lat': get_location_for_new_city[chosen_location]['lat'],
+            'lon': get_location_for_new_city[chosen_location]['lon'],
+        }
+        print(last_add_location, 'last added location')
+        print(chosen_unique_location)
+
+
+
+
+
     form = CityForm()
     context = {
         'cities_locations': cities_locations,
@@ -105,9 +127,11 @@ def your_weather(request, add_new_location=False, chosen_location=0):
 
 
 def add_chosen_location(request, chosen_location):
+
     return your_weather(request, add_new_location=True, chosen_location=chosen_location)
 
 #    return redirect('weather_in_user_city', chosen_location, add_new_location=False)
+
 
 def delete_user_city(request, city_name_to_delete):
     """
