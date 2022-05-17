@@ -1,5 +1,6 @@
 from django.contrib.auth.forms import UserCreationForm
-from django.forms import ModelForm, TextInput
+#from django.forms import ModelForm, TextInput, Form
+from django import forms
 
 from .models import City
 
@@ -9,8 +10,12 @@ class CustomUserCreationForm(UserCreationForm):
         fields = UserCreationForm.Meta.fields + ('email',)
 
 
-class CityForm(ModelForm):
+class CityForm(forms.ModelForm):
     class Meta:
         model = City
         fields = ['name']
-        widgets = {'name': TextInput(attrs={'class': 'input', 'placeholder': 'City Name'})}
+        widgets = {'name': forms.TextInput(attrs={'class': 'input', 'placeholder': 'City Name'})}
+
+
+class LocationForm(forms.Form):
+    location = forms.CharField(label='location', max_length=100)

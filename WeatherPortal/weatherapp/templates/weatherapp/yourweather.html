@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<div class="user_information" >
+<div class="user_information" xmlns="http://www.w3.org/1999/html">
     <div>
     <h2 class="user_hello">Hello, {{ user.username|default:'Guest' }} !</h2>
     </div>
@@ -30,7 +30,7 @@
                     <div class="get_from_add_city" id="myInput">
                         {{ form.name }}
                     </div>
-                    <input type="submit" value="Add City">
+                    <input type="submit" value="Show City">
                 </div>
                 {% if message_for_user %}
                     <div class="notification_for_user">{{ message_for_user }}</div>
@@ -38,42 +38,20 @@
             </form>
         </div>
     </section>
-    <section class="section">
-        <div class="weather_city_info">
-            {% for weather_in_city in cities_for_weather_data %}
-            <div class="box">
-                <article class="weather_media">
-                    <div class="media_icon">
-                        <figure class="weather_icon">
-                            <img src="http://openweathermap.org/img/w/{{ weather_in_city.icon }}.png" alt="Image which show type of weather">
-                        </figure>
-                    </div>
-                    <div class="media_value">
-                        <p>
-                            <span class="city_name"> {{ weather_in_city.city }} </span>
-                            <br> <span class="cty_temperature"> Temp: {{ weather_in_city.temperature }}° C </span>
-                            <br> <span class="cty_wind"> Wind: {{ weather_in_city.wind }} m/s </span>
-                            <br> <span class="cty_description">{{ weather_in_city.description}} </span>
-                        </p>
-                    </div>
-                    {% if user.is_authenticated %}
-                        <div class="media_delete_button">
-                            <a href="{% url 'delete_user_city' weather_in_city.city %}">
-                                <button class="delete_button"></button>
-                            </a>
-                        </div>
-                    {% endif %}
-                </article>
+    <section>
+        <div class="list-group">
+        {% for city_location in cities_locations %}
+            <div>
+                 <a href="{% url 'add_chosen_location' city_location.number %}" class="list-group-item list-group-item-action">
+                {{ city_location.city }}
+                lat: {{ city_location.lat }}
+                lon: {{ city_location.lon }}
+                country: {{ city_location.country }}
+                state: {{ city_location.state }}
+                 </a>
             </div>
-            {% endfor %}
-            {% if user.is_authenticated %}
-            {% else %}
-                <div>
-                    Log in, increase the possibilities of the application
-                    <br> Check weather for more city than one and save Your cities
-                </div>
-            {% endif %}
-        </div>
+        {% endfor %}
+
     </section>
 </body>
 {% endblock %}
