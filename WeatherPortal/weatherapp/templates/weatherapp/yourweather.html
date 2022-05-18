@@ -40,18 +40,83 @@
     </section>
     <section>
         <div class="list-group">
-        {% for city_location in cities_locations %}
-            <div>
-                 <a href="{% url 'add_chosen_location' city_location.number %}" class="list-group-item list-group-item-action">
-                {{ city_location.city }}
-                lat: {{ city_location.lat }}
-                lon: {{ city_location.lon }}
-                country: {{ city_location.country }}
-                state: {{ city_location.state }}
-                 </a>
-            </div>
-        {% endfor %}
-
+            {% for city_location in cities_locations %}
+                <div>
+                     <a href="{% url 'add_chosen_location' city_location.number %}" class="list-group-item list-group-item-action">
+                    {{ city_location.city }}
+                    lat: {{ city_location.lat }}
+                    lon: {{ city_location.lon }}
+                    country: {{ city_location.country }}
+                    state: {{ city_location.state }}
+                     </a>
+                </div>
+            {% endfor %}
+        </div>
     </section>
+    <div>
+        {% if add_new_location %}
+        <section class="section">
+            <div class="weather_city_info">
+                <div class="box">
+                    <article class="weather_media">
+                        <div class="media_icon">
+                            <figure class="weather_icon">
+                                <img src="http://openweathermap.org/img/w/{{ weather_for_new_location.icon }}.png" alt="Image which show type of weather">
+                            </figure>
+                        </div>
+                        <div class="media_value">
+                            <p>
+                                <span class="city_name"> {{ weather_for_new_location.location }} [{{ weather_for_new_location.country }}]</span>
+                                <br> <span class="cty_temperature"> Temp: {{ weather_for_new_location.temperature }}° C </span>
+                                <br> <span class="cty_wind"> Wind: {{ weather_for_new_location.wind }} m/s </span>
+                                <br> <span class="cty_description">{{ weather_for_new_location.description}} </span>
+                            </p>
+                        </div>
+                            {% if user.is_authenticated %}
+                                <a class="btn btn-outline-success" href="{% url 'save_chosen_location' weather_for_new_location.location weather_for_new_location.location_number %}" role="button">Save</a>
+                            {% endif %}
+                    </article>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+    </div>
+    <section class="section">
+        <div class="weather_city_info">
+            {% for weather_in_location in weather_for_user_locations %}
+            <div class="box">
+                <article class="weather_media">
+                    <div class="media_icon">
+                        <figure class="weather_icon">
+                            <img src="http://openweathermap.org/img/w/{{ weather_in_location.icon }}.png" alt="Image which show type of weather">
+                        </figure>
+                    </div>
+                    <div class="media_value">
+                        <p>
+                            <span class="city_name"> {{ weather_in_location.location }} [{{ weather_in_location.country }}] </span>
+                            <br> <span class="cty_temperature"> Temp: {{ weather_in_location.temperature }} °C </span>
+                            <br> <span class="cty_wind"> Wind: {{ weather_in_location.wind }} m/s </span>
+                            <br> <span class="cty_description">{{ weather_in_location.description }} </span>
+                        </p>
+                    </div>
+                        <div class="media_delete_button">
+                            <a href="{% url 'delete_user_location' weather_in_location.location_id %}">
+                                <button class="delete_button"></button>
+                            </a>
+                        </div>
+                </article>
+            </div>
+            {% endfor %}
+            {% if user.is_authenticated %}
+            {% else %}
+                <div>
+                    Log in, increase the possibilities of the application
+                    <br> Check weather for more city than one and save Your cities
+                </div>
+            {% endif %}
+        </div>
+    </section>
+
+
 </body>
 {% endblock %}

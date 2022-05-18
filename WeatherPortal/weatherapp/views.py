@@ -8,22 +8,21 @@ from django.urls import reverse
 from pprint import pprint
 
 from .forms import CityForm, CustomUserCreationForm
-from .models import City
+from .models import City, Location
 
 API_KEY = os.getenv('API_KEY')
 
 
 def get_city_location(city_name):
-    #http://api.openweathermap.org/geo/1.0/direct?q=London&limit=9&appid=f92692da38455ae53f832ee64b87574c
     try:
         response_city_coords = requests.get(
             f'http://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit=9&appid={API_KEY}'
         )
         get_coords_data = response_city_coords.json()
-        if get_coords_data:  # check that city exist in geo api
+        if get_coords_data:
             return get_coords_data
         else:
-            return ValueError("No matching result for specific city")
+            return None
     except requests.exceptions.HTTPError:
         return "Can't connect with openweather api"
 
@@ -37,15 +36,11 @@ def get_weather_data_by_location(lat, lon):
     """
     try:
         weather_for_location = requests.get(
-            f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&exclude=current&appid={API_KEY}'
+            f'https://api.openweathermap.org/data/2.5/onecall?lat={lat}&lon={lon}&units=Metric&appid={API_KEY}'
         )
         return weather_for_location.json()
     except requests.exceptions.HTTPError:
         return "Can't connect with openweather api"
-
-
-def try_weather(request):
-    return render(request, 'weatherapp/tryweather.html')
 
 
 def register(request):
@@ -64,40 +59,45 @@ def register(request):
 
 def your_weather(request, add_new_location=False, chosen_location=0):
     """
-        Connect with openweather api and show information about weather in choosen city in website
-        Saved added city for only logged user
-        Check validator that city exist and for logged user that city exist in user's saved cities
+        By method POST user send location name next to by openweather api app show locations with fit to name.
+        User see latitude, longitude, country, state location and by chose one user get information
+        about current weather. When user is logged he can save location to his list.
+        Check validator that location exist and for logged user that location exist in user's saved cities
     """
     cities_locations = []
+    weather_for_new_location = []
+    weather_for_user_locations = []
+    error_msg_add_city_button = ''
+    message_for_user = ''
     if request.method == 'POST':
         form = CityForm(request.POST)
         if form.is_valid():
             new_add_city = form.cleaned_data['name']
             request.session['last_add_location'] = new_add_city
             get_location_for_new_city = get_city_location(new_add_city)
-            if 'state' in get_location_for_new_city[0]:
-                print('True')
+            if get_location_for_new_city is None:  # check that city exist in geo api
+                error_msg_add_city_button = 'No matching result for specific location'
             else:
-                print('false')
-            if len(get_location_for_new_city) == 1:
-                add_new_location = True
-            else:
-                for counter_cities in range(len(get_location_for_new_city)):
-                    if 'state' in get_location_for_new_city[counter_cities]:
-                        location_state = get_location_for_new_city[counter_cities]['state']
-                    else:
-                        location_state = "---"
-                    city_location = {
-                        'city': new_add_city,
-                        'lat': get_location_for_new_city[counter_cities]['lat'],
-                        'lon': get_location_for_new_city[counter_cities]['lon'],
-                        'country': get_location_for_new_city[counter_cities]['country'],
-                        'state': location_state,
-                        'number': counter_cities,
+                if len(get_location_for_new_city) == 1:
+                    add_new_location = True
+                else:
+                    for counter_cities in range(len(get_location_for_new_city)):
 
-                    }
-                    cities_locations.append(city_location)
-
+                        if 'state' in get_location_for_new_city[counter_cities]:
+                            location_state = get_location_for_new_city[counter_cities]['state']
+                        else:
+                            location_state = "--"
+                        city_location = {
+                            'city': new_add_city,
+                            'lat': get_location_for_new_city[counter_cities]['lat'],
+                            'lon': get_location_for_new_city[counter_cities]['lon'],
+                            'country': get_location_for_new_city[counter_cities]['country'],
+                            'state': location_state,
+                            'number': counter_cities,
+                        }
+                        cities_locations.append(city_location)
+            if error_msg_add_city_button:
+                message_for_user = error_msg_add_city_button
 
     if add_new_location:
         chosen_location = int(chosen_location)
@@ -105,114 +105,97 @@ def your_weather(request, add_new_location=False, chosen_location=0):
         get_location_for_new_city = get_city_location(last_add_location)
         lat_chosen_location = get_location_for_new_city[chosen_location]['lat']
         lon_chosen_location = get_location_for_new_city[chosen_location]['lon']
-        print(lat_chosen_location, "jest typu:", type(lat_chosen_location))
-        chosen_unique_location = {
-            'location': last_add_location,
-            'lat': get_location_for_new_city[chosen_location]['lat'],
-            'lon': get_location_for_new_city[chosen_location]['lon'],
-        }
-        print(last_add_location, 'last added location')
-        print(chosen_unique_location)
+        if request.user.is_authenticated:
+            check_that_location_on_the_same_lat_lon_exist = Location.objects.filter(user=request.user,
+                                                                                    lat=lat_chosen_location,
+                                                                                    lon=lon_chosen_location).count()
+            if check_that_location_on_the_same_lat_lon_exist == 0:
+                get_weather_data = get_weather_data_by_location(lat_chosen_location, lon_chosen_location)
+                weather_for_new_location = {
+                    'location': last_add_location,
+                    'country': get_location_for_new_city[chosen_location]['country'],
+                    'location_number': chosen_location,
+                    'temperature': get_weather_data['current']['temp'],
+                    'wind': get_weather_data['current']['wind_speed'],
+                    'description': get_weather_data['current']['weather'][0]['description'],
+                    'icon': get_weather_data['current']['weather'][0]['icon'],
+                }
+            else:
+                message_for_user = "Location already exist in your list"
+                add_new_location = False
+        else:
+            get_weather_data = get_weather_data_by_location(lat_chosen_location, lon_chosen_location)
 
+            weather_for_new_location = {
+                'location': last_add_location,
+                'country': get_location_for_new_city[chosen_location]['country'],
+                'location_number': chosen_location,
+                'temperature': get_weather_data['current']['temp'],
+                'wind': get_weather_data['current']['wind_speed'],
+                'description': get_weather_data['current']['weather'][0]['description'],
+                'icon': get_weather_data['current']['weather'][0]['icon'],
+            }
 
-
-
+    if request.user.is_authenticated:
+        user_locations = Location.objects.filter(user=request.user.id).values()
+        for user_locate in user_locations:
+            get_weather_data = get_weather_data_by_location(user_locate['lat'], user_locate['lon'])
+            weather_for_location = {
+                'location_id': user_locate['id'],
+                'location': user_locate['name'],
+                'country': user_locate['country'],
+                'temperature': get_weather_data['current']['temp'],
+                'wind': get_weather_data['current']['wind_speed'],
+                'description': get_weather_data['current']['weather'][0]['description'],
+                'icon': get_weather_data['current']['weather'][0]['icon'],
+            }
+            weather_for_user_locations.append(weather_for_location)
 
     form = CityForm()
     context = {
+        'weather_for_user_locations': weather_for_user_locations,
+        'add_new_location': add_new_location,
+        'weather_for_new_location': weather_for_new_location,
         'cities_locations': cities_locations,
         'form': form,
+        'message_for_user': message_for_user,
     }
     return render(request, 'weatherapp/yourweather.html', context)
 
 
 def add_chosen_location(request, chosen_location):
-
+    """
+        add_new_location=True: in view your_weather allow to show weather for use and save this location for logged user
+    """
     return your_weather(request, add_new_location=True, chosen_location=chosen_location)
 
-#    return redirect('weather_in_user_city', chosen_location, add_new_location=False)
 
+def save_chosen_location(request, location, location_number):
+    """
+        save chosen location for unique authenticated user
+    """
+    get_location_data_to_save = get_city_location(location)
+    name_to_save = location
+    lat_to_save = get_location_data_to_save[location_number]['lat']
+    lon_to_save = get_location_data_to_save[location_number]['lon']
+    country_to_save = get_location_data_to_save[location_number]['country']
+    if 'state' in get_location_data_to_save[location_number]:
+        state_to_save = get_location_data_to_save[location_number]['state']
+    else:
+        state_to_save = "--"  # If state not exist for location in api
 
-def delete_user_city(request, city_name_to_delete):
-    """
-        delete saved city for unique user
-    """
-    City.objects.get(name=city_name_to_delete, user=request.user).delete()
+    data_location_to_save = Location(user=request.user, name=name_to_save, lat=lat_to_save,
+                                     lon=lon_to_save, country=country_to_save, state=state_to_save)
+    data_location_to_save.save()
     return redirect('weather_in_user_city')
 
 
-'''def your_weather(request):
+# ===================================================================================
+def delete_user_location(request, location_unique_id):
     """
-        Connect with openweather api and show information about weather in choosen city in website
-        Saved added city for only logged user
-        Check validator that city exist and for logged user that city exist in user's saved cities
+        delete saved location only for authenticated user
     """
+    Location.objects.get(id=location_unique_id, user=request.user).delete()
+    return redirect('weather_in_user_city')
 
-    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=Metric&appid=f92692da38455ae53f832ee64b87574c'
-    error_msg_add_city_button = ''
-    message_for_user = ''
-    cities_for_weather_data = []
 
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = CityForm(request.POST)
-            if form.is_valid():
-                new_add_city = form.cleaned_data['name']
-                get_weather_data_for_city = requests.get(url.format(new_add_city)).json()
-                if get_weather_data_for_city['cod'] == 200:
-                    new_city_for_logged_user = City.objects.filter(name=new_add_city, user=request.user).count()
-                    if new_city_for_logged_user == 0:
-                        form = City(name=new_add_city, user=request.user)
-                        form.save()
-                    else:
-                        error_msg_add_city_button = 'City already existing in your list'
-                else:
-                    error_msg_add_city_button = 'City not existing in the world'
-
-            if error_msg_add_city_button:
-                message_for_user = error_msg_add_city_button
-            else:
-                message_for_user = 'New City added successfully'
-
-        cities_for_user = City.objects.filter(user=request.user.id)
-        for city in cities_for_user:
-            get_weather_data = requests.get(url.format(city)).json()
-
-            weather_in_city = {
-                'city': city.name,
-                'temperature': get_weather_data['main']['temp'],
-                'wind': get_weather_data['wind']['speed'],
-                'description': get_weather_data['weather'][0]['description'],
-                'icon': get_weather_data['weather'][0]['icon'],
-            }
-
-            cities_for_weather_data.append(weather_in_city)
-
-    else:
-        if request.method == 'POST':
-            form = CityForm(request.POST)
-            if form.is_valid():
-                new_add_city_for_not_logged = form.cleaned_data['name']
-                get_weather_data = requests.get(url.format(new_add_city_for_not_logged)).json()
-                if get_weather_data['cod'] == 200:
-                    cities_for_weather_data = [{
-                        'city': new_add_city_for_not_logged,
-                        'temperature': get_weather_data['main']['temp'],
-                        'wind': get_weather_data['wind']['speed'],
-                        'description': get_weather_data['weather'][0]['description'],
-                        'icon': get_weather_data['weather'][0]['icon'],
-                    }]
-                else:
-                    error_msg_add_city_button = 'City not existing in the world'
-            if error_msg_add_city_button:
-                message_for_user = error_msg_add_city_button
-            else:
-                message_for_user = 'New City added successfully'
-
-    form = CityForm()
-    context = {
-        "cities_for_weather_data": cities_for_weather_data,
-        'form': form,
-        'message_for_user': message_for_user,
-    }
-    return render(request, 'weatherapp/yourweather.html', context)'''
