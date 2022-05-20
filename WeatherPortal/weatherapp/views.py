@@ -1,6 +1,5 @@
 import requests
 import os
-import dotenv
 
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
@@ -24,7 +23,7 @@ def get_city_location(city_name):
         else:
             return None
     except requests.exceptions.HTTPError:
-        return "Can't connect with openweather api"
+        return HttpResponse("Can't connect with openweather api", status=404)
 
 
 def get_weather_data_by_location(lat, lon):
@@ -69,6 +68,7 @@ def your_weather(request, add_new_location=False, chosen_location=0):
     weather_for_user_locations = []
     error_msg_add_city_button = ''
     message_for_user = ''
+
     if request.method == 'POST':
         form = CityForm(request.POST)
         if form.is_valid():
@@ -83,16 +83,14 @@ def your_weather(request, add_new_location=False, chosen_location=0):
                 else:
                     for counter_cities in range(len(get_location_for_new_city)):
 
-                        if 'state' in get_location_for_new_city[counter_cities]:
-                            location_state = get_location_for_new_city[counter_cities]['state']
-                        else:
-                            location_state = "--"
+                        state_to_save = get_location_for_new_city[counter_cities].get("state", "--")
+
                         city_location = {
                             'city': new_add_city,
                             'lat': get_location_for_new_city[counter_cities]['lat'],
                             'lon': get_location_for_new_city[counter_cities]['lon'],
                             'country': get_location_for_new_city[counter_cities]['country'],
-                            'state': location_state,
+                            'state': state_to_save,
                             'number': counter_cities,
                         }
                         cities_locations.append(city_location)
@@ -179,10 +177,7 @@ def save_chosen_location(request, location, location_number):
     lat_to_save = get_location_data_to_save[location_number]['lat']
     lon_to_save = get_location_data_to_save[location_number]['lon']
     country_to_save = get_location_data_to_save[location_number]['country']
-    if 'state' in get_location_data_to_save[location_number]:
-        state_to_save = get_location_data_to_save[location_number]['state']
-    else:
-        state_to_save = "--"  # If state not exist for location in api
+    state_to_save = get_location_data_to_save[location_number].get("state", "--")
 
     data_location_to_save = Location(user=request.user, name=name_to_save, lat=lat_to_save,
                                      lon=lon_to_save, country=country_to_save, state=state_to_save)
@@ -190,12 +185,9 @@ def save_chosen_location(request, location, location_number):
     return redirect('weather_in_user_city')
 
 
-# ===================================================================================
 def delete_user_location(request, location_unique_id):
     """
         delete saved location only for authenticated user
     """
     Location.objects.get(id=location_unique_id, user=request.user).delete()
     return redirect('weather_in_user_city')
-
-
