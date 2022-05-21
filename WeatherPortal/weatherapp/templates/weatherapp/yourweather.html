@@ -5,7 +5,7 @@
 
 <div class="user_information" xmlns="http://www.w3.org/1999/html">
     <div>
-    <h2 class="user_hello">Hello, {{ user.username|default:'Guest' }} !</h2>
+        <h2 class="user_hello">Hello, {{ user.username|default:'Guest' }} !</h2>
     </div>
     <div class="user_button">
     </div>
@@ -98,6 +98,15 @@
                         </div>
                 </article>
             </div>
+        {% if weather_in_city.temperature > 30 %}
+        <div class="alert alert-danger" role="alert">
+            Warning, it's going to be hot today! Remember to hydrate.
+        </div>
+        {% elif weather_in_city.temperature < 0 %}
+        <div class="alert alert-danger" role="alert">
+            Warning, it's freezing today! Be sure to wear appropriate clothing.
+        </div>
+        {% endif %}
             {% endfor %}
             {% if user.is_authenticated %}
             {% else %}

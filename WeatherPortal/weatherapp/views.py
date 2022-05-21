@@ -158,6 +158,7 @@ def your_weather(request, add_new_location=False, chosen_location=0):
         'form': form,
         'message_for_user': message_for_user,
     }
+
     return render(request, 'weatherapp/yourweather.html', context)
 
 
