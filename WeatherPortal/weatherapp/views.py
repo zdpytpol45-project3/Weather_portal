@@ -7,7 +7,6 @@ from .forms import CityForm, CustomUserCreationForm
 from .models import City
 
 
-# Create your views here.
 def register(request):
     if request.method == "GET":
         return render(
@@ -95,6 +94,7 @@ def your_weather(request):
         'form': form,
         'message_for_user': message_for_user,
     }
+
     return render(request, 'weatherapp/yourweather.html', context)
 
 
