@@ -21,7 +21,10 @@
   font-weight: 700;
 }
 
+.login {
+  color: black;
 
+}
 body {
     color: #4a4a4a;
     font-size: 16px;
@@ -51,12 +54,10 @@ body{
   display: flex;
   align-items: center;
   justify-content: space-around;
-
 }
 
 .media_delete_button {
   margin-left: 15%;
-
 }
 
 .delete_button:after{
@@ -98,10 +99,8 @@ input[type=submit] {
   display: flex;
   justify-content: center;
   align-items: center;
-
   flex-direction: column
 }
-
 
 .bg {
   /* The image used */
@@ -114,9 +113,5 @@ input[type=submit] {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-}
-
-
-  flex-direction: column;
 }
 
