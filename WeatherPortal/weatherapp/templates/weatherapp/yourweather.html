@@ -29,20 +29,28 @@
                 {% endif %}
             </form>
         </div>
+        <div class="text-center">
+            Check weather for more city than one and save Your cities
+        </div>
+        <br>
+
     </section>
     <section>
-        <div class="list-group">
+        <div class="list-group align-items-lg-center">
             {% for city_location in cities_locations %}
                 <div>
-                     <a href="{% url 'add_chosen_location' city_location.number %}" class="list-group-item list-group-item-action">
-                    {{ city_location.city }}
+                     <a href="{% url 'add_chosen_location' city_location.number %}" class="list-group-item">
+                    <li class="list-group">{{ city_location.city }}
                     lat: {{ city_location.lat }}
                     lon: {{ city_location.lon }}
                     country: {{ city_location.country }}
-                    state: {{ city_location.state }}
+                    state: {{ city_location.state }}</li>
+
                      </a>
                 </div>
+
             {% endfor %}
+            <br>
         </div>
     </section>
     <div>
