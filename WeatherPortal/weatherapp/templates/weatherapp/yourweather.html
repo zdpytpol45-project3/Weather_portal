@@ -54,17 +54,33 @@
                             <br> <span class="cty_temperature"> Temp: {{ weather_in_city.temperature }}° C </span>
                             <br> <span class="cty_wind"> Wind: {{ weather_in_city.wind }} m/s </span>
                             <br> <span class="cty_description">{{ weather_in_city.description}} </span>
+
                         </p>
                     </div>
+
                     {% if user.is_authenticated %}
                         <div class="media_delete_button">
                             <a href="{% url 'delete_user_city' weather_in_city.city %}">
                                 <button class="delete_button"></button>
                             </a>
                         </div>
+
                     {% endif %}
+
                 </article>
             </div>
+
+            {% if weather_in_city.temperature > 30 %}
+            <div class="alert alert-primary" role="alert">
+               Uwaga, dzisiaj będzie gorąco! Pamiętaj o nawadnianiu.</div>
+            {% elif weather_in_city.temperature < 0 %}
+            <div class="alert alert-primary" role="alert">
+                Uwaga, dzisiaj jest mróz! Pamiętaj o odpowiednim odzieniu.</div>
+
+
+
+            {% endif %}
+
             {% endfor %}
             {% if user.is_authenticated %}
             {% else %}
