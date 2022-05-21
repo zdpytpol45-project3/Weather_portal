@@ -106,15 +106,15 @@
                         </div>
                 </article>
             </div>
-        {% if weather_in_city.temperature > 30 %}
-        <div class="alert alert-danger" role="alert">
-            Warning, it's going to be hot today! Remember to hydrate.
-        </div>
-        {% elif weather_in_city.temperature < 0 %}
-        <div class="alert alert-danger" role="alert">
-            Warning, it's freezing today! Be sure to wear appropriate clothing.
-        </div>
-        {% endif %}
+                {% if weather_in_location.temperature > 30 %}
+                <div class="alert alert-danger" role="alert">
+                    Warning, it's going to be hot today! Remember to hydrate.
+                </div>
+                {% elif weather_in_location.temperature < 0 %}
+                <div class="alert alert-danger" role="alert">
+                    Warning, it's freezing today! Be sure to wear appropriate clothing.
+                </div>
+                {% endif %}
             {% endfor %}
             {% if user.is_authenticated %}
             {% else %}
