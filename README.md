@@ -4,11 +4,12 @@ Using the weather application, you are able to check the current weather conditi
 
 ## Table of Contents
 * [Getting started](#getting-started)
-* [Technologies Used](#technologies-used)
-* [Features](#features)
-* [Screenshots](#screenshots)
 * [Usage](#usage)
+* [Features](#features)
+* [Technologies Used](#technologies-used)
 * [Project Status](#project-status)
+* [Contributors ✨](#contributors-)
+* [Screenshots](#screenshots)
 
 
 ### GETTING STARTED
@@ -58,13 +59,29 @@ or:
         - city already is in list
    - delete button for user to delete city in saved user list
    
-### Technologies Used
+  
+### Technologies Used:
     - Python 3.9.0
     - Django 4.0.4
     - requests
 
+
+### Languages and Tools:
+<p align="left"> <a href="https://getbootstrap.com" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/bootstrap/bootstrap-plain-wordmark.svg" alt="bootstrap" width="40" height="40"/> </a> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/django/django-original.svg" alt="django" width="40" height="40"/> </a> <a href="https://git-scm.com/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/git-scm/git-scm-icon.svg" alt="git" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://www.python.org" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/python/python-original.svg" alt="python" width="40" height="40"/> </a> <a href="https://www.sqlite.org/" target="_blank" rel="noreferrer"> <img src="https://www.vectorlogo.zone/logos/sqlite/sqlite-icon.svg" alt="sqlite" width="40" height="40"/> </a> </p> 
+
 ### Project Status
 Project is: _in progress_
+
+### Contributors ✨
+<table>
+<tr>
+<td align="center"><a href="https://github.com/robert-adamczyk"><img src="https://avatars2.githubusercontent.com/u/17708702?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Robert Adamczyk</b></sub></a><br /><title="Code">💻</a><title="Tests">⚠️</a></td>
+
+<td align="center"><a href="https://github.com/GJezierski"><img src="https://avatars3.githubusercontent.com/u/12335761?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grzegorz Jezierski</b></sub></a><br /><title="Code">💻</a></td>
+    
+ <td align="center"><a href="https://github.com/jacek-gielnik"><img src="https://avatars2.githubusercontent.com/u/17708702?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jacek Gielnik</b></sub></a><br /><title="Code">💻</a></td>
+ </tr>   
+</table>    
 
 ### Screenshots
 ..
