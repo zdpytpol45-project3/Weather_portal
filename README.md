@@ -75,7 +75,7 @@ Project is: _in progress_
 ### Contributors ✨
 <table>
 <tr>
-<td align="center"><a href="https://github.com/robert-adamczyk"><img src="https://avatars2.githubusercontent.com/u/17708702?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Robert Adamczyk</b></sub></a><br /><title="Code">💻</a><title="Tests">⚠️</a></td>
+<td align="center"><a href="https://github.com/robert-adamczyk"><img src="https://avatars2.githubusercontent.com/u/17708702?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Robert Adamczyk</b></sub></a><br /><title="Code">💻</a></td>
 
 <td align="center"><a href="https://github.com/GJezierski"><img src="https://avatars3.githubusercontent.com/u/12335761?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grzegorz Jezierski</b></sub></a><br /><title="Code">💻</a></td>
     
