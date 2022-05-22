@@ -1,5 +1,5 @@
 <div align="center">
-  <h3 align="center">Weather Portal</h3>
+  <h1 align="center">Weather Portal</h1>
   <p align="center">
     Final project of SDA python course: ZDPYTpol45
     
