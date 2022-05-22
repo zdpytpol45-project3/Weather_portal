@@ -88,6 +88,8 @@ or:
     - Python 3.9.0
     - Django 4.0.4
     - requests
+    - bootstrap 5
+    - Weather API - OpenWeatherMap
 
 
 ## Languages and Tools:
