@@ -84,6 +84,14 @@ Project is: _in progress_
 </table>    
 
 ### Screenshots
-
-<img src="https://iili.io/X3Itt4.md.png">
+#### Home Site
+<a href="https://freeimage.host/i/XFXThl"><img src="https://iili.io/XFXThl.md.png" alt="XFXThl.md.png" ></a>
+#### Login
+<a href="https://freeimage.host/i/XFXxpf"><img src="https://iili.io/XFXxpf.md.png" alt="XFXxpf.md.png" ></a>
+#### Allerts
+<a href="https://freeimage.host/i/XFXII4"><img src="https://iili.io/XFXII4.md.png" alt="XFXII4.md.png" ></a>
+#### Select City
+<a href="https://freeimage.host/i/XFXokG"><img src="https://iili.io/XFXokG.md.png" alt="XFXokG.md.png" ></a>
+#### Show/Save City
+<a href="https://freeimage.host/i/XFXuQ2"><img src="https://iili.io/XFXuQ2.md.png" alt="XFXuQ2.md.png" ></a>
  
