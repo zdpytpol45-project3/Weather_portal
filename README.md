@@ -71,10 +71,10 @@ or:
     
  ## Features
    List the ready features here:
-   - User registration/login
-   - Change password
-   - Reset password
-   - Registrator new user
+   - user registration/login
+   - change password
+   - reset password
+   - registrator new user
    - connect with OpenWeather Api
    - let choose user one unique location by Latitude and Longitude (after choose city name)
    - save city for logged users (without maximum)
