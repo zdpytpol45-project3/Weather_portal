@@ -83,6 +83,7 @@ or:
         - city exist 
         - city already is in list
    - delete button for user to delete city in saved user list
+   - notifies the user about dangerous conditions (low, high temp)
    - add tests:
         - test Model
         - test response from api
