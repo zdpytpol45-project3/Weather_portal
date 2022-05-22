@@ -4,7 +4,7 @@ import os
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from django.http import HttpResponseBadRequest, HttpResponse
+from pprint import pprint
 
 from .forms import CityForm, CustomUserCreationForm
 from .models import City, Location
@@ -12,13 +12,12 @@ from .models import City, Location
 API_KEY = os.getenv('API_KEY')
 
 
-def get_city_locations(city_name):
+def get_city_location(city_name):
     try:
         response_city_coords = requests.get(
             f'http://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit=9&appid={API_KEY}'
         )
         get_coords_data = response_city_coords.json()
-
         if get_coords_data:
             return get_coords_data
         else:
@@ -75,13 +74,14 @@ def your_weather(request, add_new_location=False, chosen_location=0):
         if form.is_valid():
             new_add_city = form.cleaned_data['name']
             request.session['last_add_location'] = new_add_city
-            city_locations = get_city_locations(new_add_city)
+            city_locations = get_city_location(new_add_city)
             if city_locations is None:  # check that city exist in geo api
                 error_msg_add_city_button = 'No matching result for specific location'
             else:
                 if len(city_locations) == 1:
                     add_new_location = True
                 else:
+                    # for counter_cities in range(len(get_location_for_new_city)):
 
                     for location_idx, city_location in enumerate(city_locations):
 
@@ -100,7 +100,7 @@ def your_weather(request, add_new_location=False, chosen_location=0):
     if add_new_location:
         chosen_location = int(chosen_location)
         last_add_location = request.session.get('last_add_location')
-        city_locations = get_city_locations(last_add_location)
+        city_locations = get_city_location(last_add_location)
         lat_chosen_location = city_locations[chosen_location]['lat']
         lon_chosen_location = city_locations[chosen_location]['lon']
         if request.user.is_authenticated:
