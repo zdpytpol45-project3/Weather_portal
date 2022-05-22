@@ -39,12 +39,12 @@ or:
     
  3. Download
      - You need to clone repository to your local destination  
-    `$ cd path/to/your/workspace`  
+    `cd path/to/your/workspace`  
     `git clone https://github.com/zdpytpol45-project3/Weather_portal.git`
     
  4. Requirements
     - Once your virtual environment is activated and project is cloned you need to install requirements:  
-    `$ pip install -r requirements.txt`
+    `pip install -r requirements.txt`
     
  5. Make your secret key, API key in settings.py     
    ```js
