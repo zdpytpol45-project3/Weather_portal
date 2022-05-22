@@ -123,4 +123,4 @@ Project is: _in progress_
  
 ## License
 
-No license.
+MIT License.
