@@ -6,8 +6,8 @@
         <meta charset="UTF-8">
         <title> Weather App </title>
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="Za pomocą aplikacji pogodowej jesteś wstanie sprawdzać
-        aktualne warunki pogodowe w wybranych przez siebie miastach"/>
+        <meta name="description" content="With the help of a weather app you can check
+        current weather conditions in the cities of your choice"/>
         <meta name="ZDPYTpol45 grupa 3" />
         <title>Weather Portal</title>
         <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css">
@@ -27,7 +27,7 @@
 
                   <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
-                            <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="https://github.com/zdpytpol45-project3/Weather_portal">Contact</a></li>
                         {% if user.is_authenticated %}
                             <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
                             <li class="nav-item"><a class="nav-link" href="{% url 'password_change' %}">Change Password</a></li>
@@ -54,8 +54,8 @@
             {% endblock %}
         </div>
     <!-- Footer-->
-            <footer class="py-3 bg-dark">
-                <div class="container px-5"><p class="m-0 text-center text-white small">Copyright &copy; Weather Portal 2022 - ZDPYTpol45 grupa 3</p></div>
+            <footer>
+                <div><h6>Copyright &copy; Weather Portal 2022 - ZDPYTpol45 grupa 3</h6></div>
             </footer>
 </body>
 </html>
