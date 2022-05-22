@@ -7,7 +7,7 @@
 </div>
 
 
-## About The Project
+## About
 
 Using the weather application, the user can check the current weather conditions in the cities of his choice, after user registration, the application allows you to view the weather from more than one city. The user can change and reset the password via the received link to the e-mail. The app connects to the OpenWeather Api. The user has the option of displaying the city of his choice, saving it to the favorites and deleting the cities he has chosen. The system notifies the user of unsafe conditions, including high and low temperatures.
 
