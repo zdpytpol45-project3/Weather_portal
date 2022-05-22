@@ -1,6 +1,6 @@
 ## Weather Portal
 
-Using the weather application, you are able to check the current weather conditions in the cities of your choice, after user registration, the selected cities will be remembered. The user can reset and change the password. The app connects to the OpenWeather Api. The user has the option to delete the cities he has chosen.
+Using the weather application, the user can check the current weather conditions in the cities of his choice, after user registration, the application allows you to view the weather from more than one city. The user can change and reset the password via the received link to the e-mail. The app connects to the OpenWeather Api. The user has the option of displaying the city of his choice, saving it to the favorites and deleting the cities he has chosen. The system notifies the user of unsafe conditions, including high and low temperatures.
 
 ## Table of Contents
 * [Getting started](#getting-started)
@@ -77,7 +77,7 @@ Project is: _in progress_
 <tr>
 <td align="center"><a href="https://github.com/robert-adamczyk"><img src="https://avatars2.githubusercontent.com/u/17708702?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Robert Adamczyk</b></sub></a><br /><title="Code">💻</a></td>
 
-<td align="center"><a href="https://github.com/GJezierski"><img src="https://avatars3.githubusercontent.com/u/12335761?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grzegorz Jezierski</b></sub></a><br /><title="Code">💻</a></td>
+<td align="center"><a href="https://github.com/GJezierski"><img src="https://avatars2.githubusercontent.com/u/17708702?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Grzegorz Jezierski</b></sub></a><br /><title="Code">💻</a></td>
     
  <td align="center"><a href="https://github.com/jacek-gielnik"><img src="https://avatars2.githubusercontent.com/u/17708702?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Jacek Gielnik</b></sub></a><br /><title="Code">💻</a></td>
  </tr>   
