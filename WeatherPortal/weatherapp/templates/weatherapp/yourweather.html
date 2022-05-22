@@ -73,7 +73,7 @@
                             </p>
                         </div>
                             {% if user.is_authenticated %}
-                                <a class="btn btn-outline-success" href="{% url 'save_chosen_location' weather_for_new_location.location weather_for_new_location.location_number %}" role="button">Save</a>
+                                <a class="btn btn-outline-success" href="{% url 'save_chosen_location' %}?name={{ weather_for_new_location.location }}&lat={{ weather_for_new_location.lat }}&lon={{ weather_for_new_location.lon }}&country={{ weather_for_new_location.country }}&state={{ weather_for_new_location.state }}" role="button">Save</a>
                             {% endif %}
                     </article>
                 </div>
@@ -125,7 +125,6 @@
             {% endif %}
         </div>
     </section>
-
 
 </body>
 {% endblock %}
