@@ -1,4 +1,13 @@
-## Weather Portal
+<div align="center">
+  <h3 align="center">Weather Portal</h3>
+  <p align="center">
+    Final project of SDA python course: ZDPYTpol45
+    
+  </p>
+</div>
+
+
+## About The Project
 
 Using the weather application, the user can check the current weather conditions in the cities of his choice, after user registration, the application allows you to view the weather from more than one city. The user can change and reset the password via the received link to the e-mail. The app connects to the OpenWeather Api. The user has the option of displaying the city of his choice, saving it to the favorites and deleting the cities he has chosen. The system notifies the user of unsafe conditions, including high and low temperatures.
 
@@ -35,7 +44,22 @@ or:
     
  4. Requirements
     - Once your virtual environment is activated and project is cloned you need to install requirements:  
-    `$ pip install -r requirements.txt`  
+    `$ pip install -r requirements.txt`
+    
+ 5. Make your secret key, API key in settings.py     
+   ```js
+   In settings.py set:
+       SECRET_KEY = os.getenv('SECRET_KEY')
+   
+       DEBUG = os.getenv("DEBUG") == "True"
+   
+   In manage.py folder create .env file.
+   
+   Add to .env file variables used in settings.py config: 
+       SECRET_KEY = example_name
+       DEBUG = True
+       API_KEY = example_name
+   ```
     
  ### USAGE
  
@@ -95,3 +119,6 @@ Project is: _in progress_
 #### Show/Save City
 <a href="https://freeimage.host/i/XFXuQ2"><img src="https://iili.io/XFXuQ2.md.png" alt="XFXuQ2.md.png" ></a>
  
+### License
+
+No license.
