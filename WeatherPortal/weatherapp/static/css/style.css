@@ -30,10 +30,13 @@ body {
     font-size: 16px;
     font-weight: 400;
     line-height: 1.5;
-}
-
-body{
     font-family: BlinkMacSystemFont, "Segoe UI", sans-serif;
+    background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 
@@ -102,16 +105,21 @@ input[type=submit] {
   flex-direction: column
 }
 
-.bg {
-  /* The image used */
-  background-image: url("https://mdbootstrap.com/img/Photos/Horizontal/Nature/full page/img(11).jpg");
-
-  /* Full height */
-  height: 100%;
-
-  /* Center and scale the image nicely */
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+footer {
+  background-color:#26272b;
+  padding:45px 0 20px;
+  font-size:15px;
+  line-height:24px;
+  color:#737373;
 }
 
+footer h6
+{
+  color:#fff;
+  font-size:13px;
+  font-weight: 300;
+  text-transform:uppercase;
+  margin-top:5px;
+  letter-spacing:2px;
+  text-align: center;
+}
