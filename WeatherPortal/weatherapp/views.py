@@ -4,7 +4,7 @@ import os
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from pprint import pprint
+from django.http import HttpResponseBadRequest, HttpResponse
 
 from .forms import CityForm, CustomUserCreationForm
 from .models import City, Location
@@ -12,12 +12,13 @@ from .models import City, Location
 API_KEY = os.getenv('API_KEY')
 
 
-def get_city_location(city_name):
+def get_city_locations(city_name):
     try:
         response_city_coords = requests.get(
             f'http://api.openweathermap.org/geo/1.0/direct?q={city_name}&limit=9&appid={API_KEY}'
         )
         get_coords_data = response_city_coords.json()
+
         if get_coords_data:
             return get_coords_data
         else:
@@ -74,44 +75,47 @@ def your_weather(request, add_new_location=False, chosen_location=0):
         if form.is_valid():
             new_add_city = form.cleaned_data['name']
             request.session['last_add_location'] = new_add_city
-            get_location_for_new_city = get_city_location(new_add_city)
-            if get_location_for_new_city is None:  # check that city exist in geo api
+            city_locations = get_city_locations(new_add_city)
+            if city_locations is None:  # check that city exist in geo api
                 error_msg_add_city_button = 'No matching result for specific location'
             else:
-                if len(get_location_for_new_city) == 1:
+                if len(city_locations) == 1:
                     add_new_location = True
                 else:
-                    for counter_cities in range(len(get_location_for_new_city)):
 
-                        state_to_save = get_location_for_new_city[counter_cities].get("state", "--")
+                    for location_idx, city_location in enumerate(city_locations):
 
-                        city_location = {
-                            'city': new_add_city,
-                            'lat': get_location_for_new_city[counter_cities]['lat'],
-                            'lon': get_location_for_new_city[counter_cities]['lon'],
-                            'country': get_location_for_new_city[counter_cities]['country'],
-                            'state': state_to_save,
-                            'number': counter_cities,
+                        city_location_data = {
+                            'city': city_location['name'],
+                            'lat': city_location['lat'],
+                            'lon': city_location['lon'],
+                            'country': city_location['country'],
+                            'state': city_location.get("state", "--"),
+                            'number': location_idx,
                         }
-                        cities_locations.append(city_location)
+                        cities_locations.append(city_location_data)
             if error_msg_add_city_button:
                 message_for_user = error_msg_add_city_button
 
     if add_new_location:
         chosen_location = int(chosen_location)
         last_add_location = request.session.get('last_add_location')
-        get_location_for_new_city = get_city_location(last_add_location)
-        lat_chosen_location = get_location_for_new_city[chosen_location]['lat']
-        lon_chosen_location = get_location_for_new_city[chosen_location]['lon']
+        city_locations = get_city_locations(last_add_location)
+        lat_chosen_location = city_locations[chosen_location]['lat']
+        lon_chosen_location = city_locations[chosen_location]['lon']
         if request.user.is_authenticated:
             check_that_location_on_the_same_lat_lon_exist = Location.objects.filter(user=request.user,
                                                                                     lat=lat_chosen_location,
                                                                                     lon=lon_chosen_location).count()
             if check_that_location_on_the_same_lat_lon_exist == 0:
                 get_weather_data = get_weather_data_by_location(lat_chosen_location, lon_chosen_location)
+                state_to_save = city_locations[chosen_location].get("state", "--")
                 weather_for_new_location = {
                     'location': last_add_location,
-                    'country': get_location_for_new_city[chosen_location]['country'],
+                    'lat': city_locations[chosen_location]['lat'],
+                    'lon': city_locations[chosen_location]['lon'],
+                    'country': city_locations[chosen_location]['country'],
+                    'state': state_to_save,
                     'location_number': chosen_location,
                     'temperature': get_weather_data['current']['temp'],
                     'wind': get_weather_data['current']['wind_speed'],
@@ -126,7 +130,7 @@ def your_weather(request, add_new_location=False, chosen_location=0):
 
             weather_for_new_location = {
                 'location': last_add_location,
-                'country': get_location_for_new_city[chosen_location]['country'],
+                'country': city_locations[chosen_location]['country'],
                 'location_number': chosen_location,
                 'temperature': get_weather_data['current']['temp'],
                 'wind': get_weather_data['current']['wind_speed'],
@@ -168,21 +172,22 @@ def add_chosen_location(request, chosen_location):
     return your_weather(request, add_new_location=True, chosen_location=chosen_location)
 
 
-def save_chosen_location(request, location, location_number):
+def save_chosen_location(request):
     """
         save chosen location for unique authenticated user
     """
-    get_location_data_to_save = get_city_location(location)
-    name_to_save = location
-    lat_to_save = get_location_data_to_save[location_number]['lat']
-    lon_to_save = get_location_data_to_save[location_number]['lon']
-    country_to_save = get_location_data_to_save[location_number]['country']
-    state_to_save = get_location_data_to_save[location_number].get("state", "--")
+    if request.method == "GET":
+        data_location_to_save = Location(user=request.user,
+                                         name=request.GET['name'],
+                                         lat=request.GET['lat'],
+                                         lon=request.GET['lon'],
+                                         country=request.GET['country'],
+                                         state=request.GET['state'],
+                                         )
+        data_location_to_save.save()
+        return redirect('weather_in_user_city')
 
-    data_location_to_save = Location(user=request.user, name=name_to_save, lat=lat_to_save,
-                                     lon=lon_to_save, country=country_to_save, state=state_to_save)
-    data_location_to_save.save()
-    return redirect('weather_in_user_city')
+    return HttpResponseBadRequest
 
 
 def delete_user_location(request, location_unique_id):
