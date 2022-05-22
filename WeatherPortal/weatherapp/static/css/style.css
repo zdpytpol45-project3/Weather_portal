@@ -37,8 +37,15 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    min-height: 100vh;
+    position: relative;
 }
 
+body::after {
+  content: '';
+  display: block;
+  height: 130px; /* Set same as footer's height */
+}
 
 .weather_city_info {
     margin-left: auto;
@@ -109,8 +116,12 @@ footer {
   background-color:#26272b;
   padding:45px 0 20px;
   font-size:15px;
-  line-height:24px;
+  line-height:20px;
   color:#737373;
+  position: absolute;
+  width: 100%;
+  left: 0 ; right: 0; bottom: 0;
+  height:100px;
 }
 
 footer h6
